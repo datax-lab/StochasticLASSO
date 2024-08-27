@@ -1,0 +1,7 @@
+numpy==1.21.1
+tqdm
+scipy
+sphinx>=1.4
+ipykernel
+nbsphinx
+scikit-learn==0.22.2
