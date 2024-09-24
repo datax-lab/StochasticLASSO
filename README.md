@@ -10,7 +10,7 @@ Hi-LASSO2 can be applied to any high-dimensional linear and logistic regression 
 pip install hi_lasso2
 ```
 
-## Quick Start
+## Quick start
 ```python
 #Data load
 import pandas as pd
