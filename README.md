@@ -14,8 +14,8 @@ pip install hi_lasso2
 ```python
 #Data load
 import pandas as pd
-X = pd.read_csv('https://raw.githubusercontent.com/datax-lab/Hi-LASSO/master/simulation_data/X.csv')
-y = pd.read_csv('https://raw.githubusercontent.com/datax-lab/Hi-LASSO/master/simulation_data/y.csv')
+X = pd.read_csv('https://raw.githubusercontent.com/datax-lab/Hi-LASSO2/master/simulation_data/X.csv')
+y = pd.read_csv('https://raw.githubusercontent.com/datax-lab/Hi-LASSO2/master/simulation_data/y.csv')
 
 #General Usage
 from hi_lasso2.hi_lasso2 import HiLasso2
