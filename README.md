@@ -4,7 +4,7 @@ Hi-LASSO2 systematically addresses the drawbacks of bootstrapping by reducing mu
 Hi-LASSO2 can be applied to any high-dimensional linear and logistic regression modeling.
 
 ## Installation
-**Hi-LASSO2** support Python 3.6+. ``Hi-LASSO`` can easily be installed with a pip install::
+**Hi-LASSO2** support Python 3.6+. ``Hi-LASSO2`` can easily be installed with a pip install::
 
 ```
 pip install hi_lasso2
