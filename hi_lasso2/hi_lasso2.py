@@ -7,13 +7,15 @@ from concurrent.futures import ProcessPoolExecutor
 from tqdm import tqdm
 import numpy as np
 import math
+from scipy import stats
 
 class HiLasso2:
-    def __init__(self, q='auto', r=30, logistic=False,
+    def __init__(self, q='auto', r=30, logistic=False, alpha=0.05,
                  random_state=None, parallel=False, n_jobs=None):
         self.q = q
         self.r = r
         self.logistic = logistic
+        self.alpha = alpha
         self.random_state = random_state
         self.parallel = parallel
         self.n_jobs = n_jobs        
@@ -29,8 +31,12 @@ class HiLasso2:
         self.corr[np.isnan(self.corr)] = 10**(-10)
         self.corr[self.corr==0] = 10**(-10)
 
-        b1 = self._bootstrapping()
-        self.coef_ = b1
+        betas = self._bootstrapping()
+        self.betas = betas
+        self.p_values_ = self._compute_p_values(betas)
+        coef = np.zeros(self.p)
+        coef[self.p_values_<self.alpha] = betas.mean(axis = 0)[self.p_values_<self.alpha]
+        self.coef_ = coef
         return self
 
     def _bootstrapping(self):
@@ -56,7 +62,7 @@ class HiLasso2:
         
         # Generate bootstrap index of sample.
         bst_sample_idx = self.rs.choice(np.arange(self.n), size=self.n, replace=True, p=None)
-        bst_predictor_idx_list = self._variable_sampling()
+        bst_predictor_idx_list = self._CBB()
         
         for bst_predictor_idx in bst_predictor_idx_list:
             # Standardization.
@@ -69,13 +75,12 @@ class HiLasso2:
             beta[bst_predictor_idx] = beta[bst_predictor_idx] + (coef / x_std)
         return beta
 
-    def _variable_sampling(self):
+    def _CBB(self):
         idx_set = np.arange(self.p)
         bst_predictor_idx_list = []
         for i in range(math.ceil(self.p/self.q)-1):
             bst_predictor_idx = []
-            sel_prop = (1/self.corr[idx_set,:][:,idx_set].sum(axis = 1))
-            bst_predictor_idx.append(self.rs.choice(idx_set, 1, p = sel_prop/sel_prop.sum())[0])
+            bst_predictor_idx.append(self.rs.choice(idx_set, 1)[0])
             idx_set = np.setdiff1d(idx_set, bst_predictor_idx[-1])
             for j in range(self.q-1):
                 sel_prop = (1/(self.corr[bst_predictor_idx,:][:,idx_set]).sum(axis = 0))
@@ -84,3 +89,10 @@ class HiLasso2:
             bst_predictor_idx_list.append(np.array(bst_predictor_idx))
         bst_predictor_idx_list.append(idx_set)
         return bst_predictor_idx_list
+    
+    def _compute_p_values(self, betas):
+        relevant = (stats.ttest_1samp(betas, 0)[1] < self.alpha)
+        pop = abs(betas[:,relevant]).reshape(-1)
+        p_values = np.array([stats.ttest_ind(abs(betas[:,i]), pop, alternative = 'greater')[1] 
+                             if b else 1 for i, b in enumerate(relevant)])
+        return p_values
