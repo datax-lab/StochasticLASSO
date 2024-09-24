@@ -1,9 +1,7 @@
 # Hi-LASSO2
-High-Dimensional LASSO (Hi-LASSO) can theoretically improves a LASSO model providing better performance of both prediction and feature selection on extremely 
-high-dimensional data.  Hi-LASSO alleviates bias introduced from bootstrapping, refines importance scores, improves the performance taking advantage of 
-global oracle property, provides a statistical strategy to determine the number of bootstrapping, and allows tests of significance for feature selection with 
-appropriate distribution.  In Hi-LASSO will be applied to Use the pool of the python library to process parallel multiprocessing to reduce the time required for 
-the model.
+High-Dimensional LASSO2 (Hi-LASSO2) can significantly enhance the existing bootstrap-based LASSO models, providing better performance in both feature selection and coefficient estimation on extremely high-dimensional data.
+Hi-LASSO2 systematically addresses the drawbacks of bootstrapping by reducing multicollinearity in bootstrap samples, mitigating randomness in predictor sampling, and providing a statistical strategy for selecting statistically significant features.
+Hi-LASSO2 can be applied to any high-dimensional linear and logistic regression modeling.
 
 ## Installation
 **Hi-LASSO2** support Python 3.6+. ``Hi-LASSO`` can easily be installed with a pip install::
