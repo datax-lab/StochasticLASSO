@@ -76,19 +76,20 @@ class HiLasso2:
         return beta
 
     def _CBB(self):
-        idx_set = np.arange(self.p)
+        S = list(range(self.p))
         bst_predictor_idx_list = []
-        for i in range(math.ceil(self.p/self.q)-1):
-            bst_predictor_idx = []
-            bst_predictor_idx.append(self.rs.choice(idx_set, 1)[0])
-            idx_set = np.setdiff1d(idx_set, bst_predictor_idx[-1])
+        while len(S)>=self.q:
+            Q = []
+            Q.append(np.random.choice(S, 1)[0])
+            S.remove(Q[-1])
             for j in range(self.q-1):
-                sel_prop = (1/(self.corr[bst_predictor_idx,:][:,idx_set]).sum(axis = 0))
-                bst_predictor_idx.append(self.rs.choice(idx_set, 1, p = sel_prop/sel_prop.sum())[0])
-                idx_set = np.setdiff1d(idx_set, bst_predictor_idx[-1])
-            bst_predictor_idx_list.append(np.array(bst_predictor_idx))
-        bst_predictor_idx_list.append(idx_set)
-        return bst_predictor_idx_list
+                sel_prop = (1/(self.corr[Q,:][:,S]).sum(axis = 0))
+                Q.append(np.random.choice(S, 1, p = sel_prop/sel_prop.sum())[0])
+                S.remove(Q[-1])
+            bst_predictor_idx_list.append(Q)
+        if len(S)!=0:
+            bst_predictor_idx_list.append(S)
+        return bst_predictor_idx_list 
     
     def _compute_p_values(self, betas):
         relevant = (stats.ttest_1samp(betas, 0)[1] < self.alpha)
