@@ -9,7 +9,7 @@ import numpy as np
 import math
 from scipy import stats
 
-class HiLasso2:
+class StochasticLasso:
     """
     Parameters
     ----------        
@@ -20,7 +20,7 @@ class HiLasso2:
        The number of times each predictors is selected in bootstrapping.            
     logistic: Boolean [default=False]
         Whether to apply logistic regression model. 
-        For classification problem, Hi-LASSO can apply the logistic regression model.       
+        For classification problem, Stochastic LASSO can apply the logistic regression model.       
     alpha: float [default=0.05]
        significance level used for significance test for feature selection
     random_state: int or None, optional [default=None]
@@ -58,9 +58,9 @@ class HiLasso2:
         p_values_ : array
             P-values of each coefficients.
         coef_ : array
-            Coefficients of Hi-LASSO2.            
+            Coefficients of Stochastic LASSO.            
         intercept_: float
-            Intercept of Hi-LASSO2.
+            Intercept of Stochastic LASSO.
         """        
         self.X = np.array(X)
         self.y = np.array(y).ravel()
