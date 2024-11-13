@@ -1,12 +1,12 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='hi_lasso2',
+    name='stochastic_lasso',
     version='0.0.1',
-    description='High-Demensional LASSO2',
+    description='Stochastic LASSO',
     author='Beomsu Baek',
-    author_email='qorqjatn1388@gnu.ac.kr',
-    url='https://github.com/datax-lab/Hi-LASSO2',
+    author_email='qorqjatn9145@gnu.ac.kr',
+    url='https://github.com/datax-lab/Stochastic_LASSO',
     install_requires=['glmnet', 'tqdm'],
     packages=find_packages(exclude=[]),
     keywords=['variable selection', 'feature selection', 'lasso', 'high-dimensional data'],
