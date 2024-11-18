@@ -6,7 +6,7 @@ setup(
     description='Stochastic LASSO',
     author='Beomsu Baek',
     author_email='qorqjatn9145@gnu.ac.kr',
-    url='https://github.com/datax-lab/Stochastic_LASSO',
+    url='https://github.com/datax-lab/StochasticLASSO',
     install_requires=['glmnet', 'tqdm'],
     packages=find_packages(exclude=[]),
     keywords=['variable selection', 'feature selection', 'lasso', 'high-dimensional data'],
