@@ -14,8 +14,8 @@ pip install stochastic_lasso
 ```python
 #Data load
 import pandas as pd
-X = pd.read_csv('https://raw.githubusercontent.com/datax-lab/Stochastic_LASSO/master/simulation_data/X.csv')
-y = pd.read_csv('https://raw.githubusercontent.com/datax-lab/Stochastic_LASSO/master/simulation_data/y.csv')
+X = pd.read_csv('https://raw.githubusercontent.com/datax-lab/StochasticLASSO/master/simulation_data/X.csv')
+y = pd.read_csv('https://raw.githubusercontent.com/datax-lab/StochasticLASSO/master/simulation_data/y.csv')
 
 #General Usage
 from stochastic_lasso.stochastic_lasso import StochasticLasso
