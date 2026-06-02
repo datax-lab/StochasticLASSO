@@ -18,7 +18,7 @@ def standardization(X, y, logistic = False):
     """
     mean_x = X - X.mean()
     X_sc = mean_x / np.sqrt((mean_x ** 2).sum(axis=0))
-    if logistic = False:
+    if logistic == False:
         y_sc = y - y.mean()
     else:
         y_sc = y
