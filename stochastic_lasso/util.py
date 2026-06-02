@@ -1,7 +1,7 @@
 import numpy as np
 
 
-def standardization(X, y):
+def standardization(X, y, logistic = False):
     """The response is mean-corrected and the predictors are standardized
 
     Parameters
@@ -18,5 +18,8 @@ def standardization(X, y):
     """
     mean_x = X - X.mean()
     X_sc = mean_x / np.sqrt((mean_x ** 2).sum(axis=0))
-    y_sc = y - y.mean()
+    if logistic = False:
+        y_sc = y - y.mean()
+    else:
+        y_sc = y
     return X_sc, y_sc, np.sqrt((mean_x ** 2).sum(axis=0))
