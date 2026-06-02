@@ -109,7 +109,7 @@ class StochasticLasso:
         for bst_predictor_idx in bst_predictor_idx_list:
             # Standardization.
             X_sc, y_sc, x_std = util.standardization(self.X[bst_sample_idx, :][:, bst_predictor_idx],
-                                                     self.y[bst_sample_idx])
+                                                     self.y[bst_sample_idx], logistic=self.logistic)
             # Estimate coef.
             coef = glmnet_model.ElasticNet(X_sc, y_sc, logistic=self.logistic,
                                            sample_weight=self.sample_weight[bst_sample_idx], random_state=self.rs)
